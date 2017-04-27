@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.daniel.discovermovies_2.api.RetrofitApi;
 import com.example.daniel.discovermovies_2.api.SearchService;
 import com.example.daniel.discovermovies_2.model.Result;
 import com.example.daniel.discovermovies_2.model.SearchModel;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayoutManager linearManager;
     private RecyclerView recyclerView;
     private SearchAdapter adapter;
-    private SearchService searchService;
     private EditText searchText;
 
     @Override
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onClick: submit" );
 
             if (networkCheck()) {
+                SearchService searchService = RetrofitApi.getClient().create(SearchService.class);
                 Call<SearchModel> call = searchService.getSearch(getString(R.string.my_api_key),
                         searchText.getText().toString());
                 call.enqueue(new Callback<SearchModel>() {
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onFailure(Call<SearchModel> call, Throwable t) {
-
+                        Log.d(TAG, "onFailure: " + t.toString());
                     }
                 });
             }

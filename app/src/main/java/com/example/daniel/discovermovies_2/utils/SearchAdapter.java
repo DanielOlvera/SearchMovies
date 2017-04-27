@@ -45,7 +45,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecyclerVw
 
     @Override
     public int getItemCount() {
-        return 0;
+        return searchResult.size();
     }
 
     public class RecyclerVwHldr extends RecyclerView.ViewHolder{
