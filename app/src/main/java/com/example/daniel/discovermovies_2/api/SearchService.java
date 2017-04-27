@@ -14,7 +14,6 @@ public interface SearchService {
     @GET("/search/movie")
     Call<SearchModel> getSearch(
             @Query("api-key") String apiKey,
-            @Query("query") String movieName,
-            @Query("language") String language
+            @Query("query") String movieName
     );
 }
